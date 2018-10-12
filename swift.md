@@ -21,15 +21,15 @@ This guide was last updated on October 11, 2018 and it's based on the following 
     + [1.2 Characters](#12-characters)
   * [2. File structure](#2-file-structure)
     + [2.1 Import statements](#21-import-statements)
-    + [2.2 Enums, Protocols & Classes](#22-enums--protocols---classes)
-    + [2.3 Variables & Functions](#23-variables---functions)
+    + [2.2 Enums, Protocols and Classes](#22-enums--protocols-and-classes)
+    + [2.3 Variables and Functions](#23-variables-and-functions)
   * [3. Naming](#3-naming)
     + [3.1 General](#31-general)
     + [3.2 Descriptive and unambiguous names](#32-descriptive-and-unambiguous-names)
     + [3.3 Make an English phrase](#33-make-an-english-phrase)
     + [3.4 Initializer](#34-initializer)
     + [3.5 Protocols](#35-protocols)
-    + [3.6 Delegates & DataSource](#36-delegates---datasource)
+    + [3.6 Delegates and DataSource](#36-delegates-and-datasource)
     + [3.7 Generics](#37-generics)
   * [4. Coding Style](#4-coding-style)
     + [4.1 General formatting](#41-general-formatting)
@@ -40,8 +40,8 @@ This guide was last updated on October 11, 2018 and it's based on the following 
     + [4.6 Switch Statements and enums](#46-switch-statements-and-enums)
     + [4.7 Optionals](#47-optionals)
     + [4.8 Properties](#48-properties)
-    + [4.10 Closures](#410-closures)
-    + [4.11 Arrays](#411-arrays)
+    + [4.9 Closures](#49-closures)
+    + [4.10 Arrays](#410-arrays)
 
 ## 1. Source file
 
@@ -80,7 +80,7 @@ A source file imports exactly the top-level modules that it needs, nothing more 
 
 Imports of whole modules are preferred to imports of individual declarations or submodules.
 
-### 2.2 Enums, Protocols & Classes
+### 2.2 Enums, Protocols and Classes
 
 A file should define a single type. For the dependency injection pattern, a class file should define a protocol type and confirm to it.
 
@@ -124,7 +124,7 @@ For example:
 1. A class and its helper methods
 2. A class and *typealiases* used in the class itself
 
-### 2.3 Variables & Functions
+### 2.3 Variables and Functions
 
 The order of variables and functions in a source file can have a great effect on readability. However, there is no single correct recipe for how to do it: different files may order their contents in different ways.
 
@@ -401,7 +401,7 @@ A protocol can be used for multiple purpose, thought it can be named in differen
     }
     ```
 
-### 3.6 Delegates & DataSource
+### 3.6 Delegates and DataSource
 
 Methods on delegate protocols and delegate-like protocols, such as data sources, are named using the linguistic syntax described below, which is inspired by Cocoa’s protocols.
 
@@ -814,7 +814,7 @@ func printSomeFile() {
     }
     ```
 
-### 4.10 Closures
+### 4.9 Closures
 
 * Omit the type of the parameters.
 
@@ -868,7 +868,7 @@ func printSomeFile() {
     })
     ```
 
-### 4.11 Arrays
+### 4.10 Arrays
 
 * Avoid accessing an array directly with subscripts. When possible, use accessors such as `.first` or `.last`, which are optional and won’t crash.
 
