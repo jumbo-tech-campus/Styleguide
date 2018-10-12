@@ -2,9 +2,9 @@
 
 This style guide follow the [Apple's API Design Guidelines](https://swift.org/documentation/api-design-guidelines/), be sure to read them.
 
-This guide will describe the swift style guide with a top-bottom approach, starting form the file name and arriving to the code style convention. 
+This guide will describe the swift style guide with a top-bottom approach, starting form the file name and arriving to the code style convention.
 
-A special chapter is reserved from _special practise_ that could be implemented to help us in the daily work. 
+A special chapter is reserved from _special practise_ that could be implemented to help us in the daily work.
 
 This guide was last updated on October 11, 2018 and it's based on the following sources:
 
@@ -14,32 +14,34 @@ This guide was last updated on October 11, 2018 and it's based on the following 
 
 ## Table Of Contents
 
-1. Source file
-  * 1.1 File names
-  * 1.2 Characters
-2. File structure
-  * 2.1 Import statements
-  * 2.2 Enums, Protocols & Classes
-  * 2.3 Variables & Functions
-3. Naming
-  * 3.1 General
-  * 3.2 Descriptive and unambiguous names
-  * 3.3 Make an English phrase
-  * 3.4 Initializer
-  * 3.5 Protocols
-  * 3.6 Delegates & DataSource
-  * 3.7 Generics
-4. Coding style
-  * 4.1 General formatting 
-  * 4.2 Error Handling
-  * 4.3 Guard Statements
-  * 4.4 Access Modifiers
-  * 4.5 Custom Operators
-  * 4.6 Switch Statements and enums
-  * 4.7 Optionals
-  * 4.8 Properties
-  * 4.9 Closures
-  * 4.10 Arrays
+- [Swift Style Guide](#swift-style-guide)
+  * [Table Of Contents](#table-of-contents)
+  * [1. Source file](#1-source-file)
+    + [1.1 File names](#11-file-names)
+    + [1.2 Characters](#12-characters)
+  * [2. File structure](#2-file-structure)
+    + [2.1 Import statements](#21-import-statements)
+    + [2.2 Enums, Protocols & Classes](#22-enums--protocols---classes)
+    + [2.3 Variables & Functions](#23-variables---functions)
+  * [3. Naming](#3-naming)
+    + [3.1 General](#31-general)
+    + [3.2 Descriptive and unambiguous names](#32-descriptive-and-unambiguous-names)
+    + [3.3 Make an English phrase](#33-make-an-english-phrase)
+    + [3.4 Initializer](#34-initializer)
+    + [3.5 Protocols](#35-protocols)
+    + [3.6 Delegates & DataSource](#36-delegates---datasource)
+    + [3.7 Generics](#37-generics)
+  * [4. Coding Style](#4-coding-style)
+    + [4.1 General formatting](#41-general-formatting)
+    + [4.2 Error Handling](#42-error-handling)
+    + [4.3 Guard Statements](#43-guard-statements)
+    + [4.4 Access Modifiers](#44-access-modifiers)
+    + [4.5 Custom Operators](#45-custom-operators)
+    + [4.6 Switch Statements and enums](#46-switch-statements-and-enums)
+    + [4.7 Optionals](#47-optionals)
+    + [4.8 Properties](#48-properties)
+    + [4.10 Closures](#410-closures)
+    + [4.11 Arrays](#411-arrays)
 
 ## 1. Source file
 
@@ -103,19 +105,19 @@ protocol PersonType {
 
 class Person: PersonType {
     var name: String
-	 
+
     init(name: String, eyes: EyesColour) {
         self.name = name
         self.eyes = eyes
     }
-	 
+
     func talk() {
         print("Hello, I'm \(name)!")
     }
 }
 ```
 
-Exceptions are allowed when it makes sense to include multiple related types in a single file. 
+Exceptions are allowed when it makes sense to include multiple related types in a single file.
 
 For example:
 
@@ -126,7 +128,7 @@ For example:
 
 The order of variables and functions in a source file can have a great effect on readability. However, there is no single correct recipe for how to do it: different files may order their contents in different ways.
 
-What is important is that **each file and type uses some logical order**, which is easy to understand reading the code. 
+What is important is that **each file and type uses some logical order**, which is easy to understand reading the code.
 
 When deciding on the logical order of members, please use `// MARK: -` to group functions related to the same functionality. These comments are also interpreted by Xcode and provide bookmarks in the source window’s navigation bar.
 
@@ -150,13 +152,13 @@ Some rules applies:
         static let identifier = "MyViewControllerIdentifier"
 
         // MARK: - IBOutlets variables
-    
+
         @IBOutlet private var headerView: UIView!
         @IBOutlet private var tableView: UITableView!
         @IBOutlet private var footerView: UIView!
 
         // MARK: - Private variables
-    
+
         private let title = "My Personal List"
         private var data: [String] = []
 
@@ -181,7 +183,7 @@ Some rules applies:
 
 **Clarity is more important than brevity**. Although Swift code can be compact, naming used in the code should be clear enough to be understood without any doubt by other members of the team.
 
-Golden rule: 
+Golden rule:
 
 > If you are having trouble describing your API’s functionality in simple terms, **you may have designed the wrong API**.
 
@@ -214,7 +216,7 @@ Golden rule:
     // PREFERRED
     class RoundAnimatingButton: UIButton {
         let animationDuration: NSTimeInterval
-    
+
         func startAnimating() {
             let firstSubview = subviews.first
         }
@@ -235,7 +237,7 @@ Golden rule:
     ```swift
     // PREFERRED
     class ConnectionTableViewCell: UITableViewCell {
-    
+
         // make sure to specify the outlet type in the property name.
         @IBOutlet weak var submitButton: UIButton!
         @IBOutlet weak var emailTextField: UITextField!
@@ -244,7 +246,7 @@ Golden rule:
 	     // make sure to add the type in the property name
         let personImageView: UIImageView
         let popupViewController: UIViewController
-    
+
         // it's obvious that it's a time interval
         let animationDuration: TimeInterval
 
@@ -256,7 +258,7 @@ Golden rule:
 
     // use the complete type, not just a part
     class ConnectionCell: UITableViewCell {
-    
+
         // this isn't a `UIImage`
         let personImage: UIImageView
 
@@ -315,7 +317,7 @@ x.nounCapitalize()
   * **Mutating**
       * `x.sort()`
       * `x.append(y)`
-      
+
   * **Nonmutating**    
       * `z = x.sorted()`
       * `z = x.appending(y)`
@@ -349,7 +351,7 @@ public struct Person {
     }
 }
 ```
-  
+
 ### 3.5 Protocols
 
 A protocol can be used for multiple purpose, thought it can be named in different ways:
@@ -365,7 +367,7 @@ A protocol can be used for multiple purpose, thought it can be named in differen
     }
     ```
 
-* A protocol should have the suffixes `-able`, `-ible`, or `-ing` if it describes a capability. 
+* A protocol should have the suffixes `-able`, `-ible`, or `-ing` if it describes a capability.
 
     ```swift
     // the protocol is a capability, and we name it appropriately
@@ -387,12 +389,12 @@ A protocol can be used for multiple purpose, thought it can be named in differen
 
     class Person: PersonType {
 	     var name: String
-	 
+
 	     init(name: String, eyes: EyesColour) {
 	         self.name = name
 	         self.eyes = eyes
 	     }
-	 
+
 	     func talk() {
 	         print("Hello, I'm \(name)!")
 	     }
@@ -409,11 +411,11 @@ Methods on delegate protocols and delegate-like protocols, such as data sources,
 * For methods that take the delegate’s source object as their **only** argument:
 
   * If the method returns `Void` (such as those used to notify the delegate that an event has occurred), then the method’s base name is the **delegate’s source type** followed by an **indicative verb phrase** describing the event. The argument is unlabeled.
-  
+
         func scrollViewDidBeginScrolling(_ scrollView: UIScrollView)
 
   * If the method returns `Bool` (such as those that make an assertion about the delegate’s source object itself), then the method’s name is the **delegate’s source type** followed by an **indicative or conditional verb phrase** describing the assertion. The argument is **unlabeled**.
-        
+
         func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool
 
   * If the method returns some other value (such as those querying for information about a property of the delegate’s source object), then the method’s base name is a **noun phrase** describing the property being queried. The argument is **labeled with a preposition or phrase with a trailing preposition** that appropriately combines the noun phrase and the delegate’s source object.
@@ -456,7 +458,7 @@ func swap<Thing>(_ a: inout Thing, _ b: inout Thing)
     }
     ```
 
-* If a function returns multiple values, prefer returning a tuple instead of to using `inout` arguments 
+* If a function returns multiple values, prefer returning a tuple instead of to using `inout` arguments
 * If you use a certain tuple more than once, consider using a `typealias`
 * If you’re returning 3 or more items in a tuple, consider using a `struct` or `class` instead.
 * Be aware of **retain cycles** when creating delegates/protocols for your classes, these properties should be declared `weak`.
@@ -505,14 +507,14 @@ func swap<Thing>(_ a: inout Thing, _ b: inout Thing)
     // NOT PREFERRED
     if someBoolean {
         // do something
-    } 
-    else if { 
+    }
+    else if {
         // do something else }
     else { // do something completely different }
 
     do {
         let fileContents = try readFile("filename.txt")
-    } 
+    }
     catch {
         print(error)}
     ```
@@ -567,7 +569,7 @@ func printSomeFile() {
 
 ### 4.3 Guard Statements
 
-* Always prefer an "early return" strategy using the `guard` as opposed to nesting code in `if` statements. 
+* Always prefer an "early return" strategy using the `guard` as opposed to nesting code in `if` statements.
 
     ```swift
     // PREFERRED
@@ -623,7 +625,7 @@ func printSomeFile() {
     } else {
         print("You have the manners of a beggar.")
     }
-    
+
     // NOT PREFERRED
     guard isFriendly else {
         print("You have the manners of a beggar.")
@@ -649,7 +651,7 @@ func printSomeFile() {
 
 * If you need to unwrap multiple optionals, you have 2 possibilities:
   * If a failing unwrapping generates the same error, combine unwraps into a single `guard` statement
-  
+
      ```swift
        guard let thingOne = thingOne,
            let thingTwo = thingTwo,
@@ -657,9 +659,9 @@ func printSomeFile() {
            return
        }
      ```
-     
+
   * If different unwrap lead to different errors, separate them
-  
+
      ```swift
        // separate statements because we handle a specific error in each case
        guard let thingOne = thingOne else {
@@ -729,7 +731,7 @@ func printSomeFile() {
         }
     }
     ```
-    
+
 ### 4.7 Optionals
 
 * Use implicitly unwrapped types declared with `!` only for instance variables that you know will be initialized later before use, such as subviews that will be set up in `viewDidLoad`. In every other case, it is better to use a non-optional or regular optional property. Yes, there are cases in which you can probably "guarantee" that the property will never be `nil` when used, but it is better to be safe and consistent. Similarly, don't use force unwraps. "*It will never happen*" leads to errors and crashes.
@@ -743,7 +745,7 @@ func printSomeFile() {
     if someOptional != nil {
         // do something
     }
-    
+
     // NOT PREFERRED
     if let _ = someOptional {
         // do something
@@ -755,7 +757,7 @@ func printSomeFile() {
     ```swift
     // PREFERRED
     weak var parentViewController: UIViewController?
-    
+
     // NOT PREFERRED
     weak var parentViewController: UIViewController!
     unowned var parentViewController: UIViewController
@@ -814,20 +816,20 @@ func printSomeFile() {
 
 ### 4.10 Closures
 
-* Omit the type of the parameters. 
+* Omit the type of the parameters.
 
     ```swift
     // PREFERRED
     doSomethingWithClosure() { response in
         print(response)
     }
-    
+
     // NOT PREFERRED
     doSomethingWithClosure() { response: NSURLResponse in
         print(response)
     }
     ````
-    
+
 * Use shorthand syntax when possible, it makes code clear and compact
 
     ```swift
@@ -840,7 +842,7 @@ func printSomeFile() {
     let completionBlock: (Bool) -> Void = { (success) in
         print("Success? \(success)")
     }
-    
+
     let completionBlock: () -> Void = {
         print("Completed!")
     }
@@ -857,7 +859,7 @@ func printSomeFile() {
     doSomething(1.0) { (parameter1) in
         print("Parameter 1 is \(parameter1)")
     }
-    
+
     // PREFERRED: no trailing closure
     doSomething(1.0, success: { (parameter1) in
         print("Success with \(parameter1)")
@@ -868,8 +870,8 @@ func printSomeFile() {
 
 ### 4.11 Arrays
 
-* Avoid accessing an array directly with subscripts. When possible, use accessors such as `.first` or `.last`, which are optional and won’t crash. 
+* Avoid accessing an array directly with subscripts. When possible, use accessors such as `.first` or `.last`, which are optional and won’t crash.
 
-* Prefer using a `for item in items` syntax when possible as opposed to something like `for i in 0 ..< items.count`. 
+* Prefer using a `for item in items` syntax when possible as opposed to something like `for i in 0 ..< items.count`.
 
 * Never use the `+=` or `+` operator to append/concatenate to arrays. Instead, use `.append()` or `.append(contentsOf:)` as these are far more performant.
