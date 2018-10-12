@@ -410,21 +410,15 @@ Methods on delegate protocols and delegate-like protocols, such as data sources,
 
   * If the method returns `Void` (such as those used to notify the delegate that an event has occurred), then the method’s base name is the **delegate’s source type** followed by an **indicative verb phrase** describing the event. The argument is unlabeled.
   
-        ```swift
         func scrollViewDidBeginScrolling(_ scrollView: UIScrollView)
-        ```
 
   * If the method returns `Bool` (such as those that make an assertion about the delegate’s source object itself), then the method’s name is the **delegate’s source type** followed by an **indicative or conditional verb phrase** describing the assertion. The argument is **unlabeled**.
         
-        ```swift
         func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool
-        ```
 
   * If the method returns some other value (such as those querying for information about a property of the delegate’s source object), then the method’s base name is a **noun phrase** describing the property being queried. The argument is **labeled with a preposition or phrase with a trailing preposition** that appropriately combines the noun phrase and the delegate’s source object.
 
-        ```swift
         func numberOfSections(in scrollView: UIScrollView) -> Int
-        ```
 
 ### 3.7 Generics
 
