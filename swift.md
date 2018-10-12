@@ -14,14 +14,14 @@ This guide was last updated on October 11, 2018 and it's based on the following 
 
 ## Table Of Contents
 
-* 1. Source file
+1. Source file
   * 1.1 File names
   * 1.2 Characters
-* 2. File structure
+2. File structure
   * 2.1 Import statements
   * 2.2 Enums, Protocols & Classes
   * 2.3 Variables & Functions
-* 3. Naming
+3. Naming
   * 3.1 General
   * 3.2 Descriptive and unambiguous names
   * 3.3 Make an English phrase
@@ -29,7 +29,7 @@ This guide was last updated on October 11, 2018 and it's based on the following 
   * 3.5 Protocols
   * 3.6 Delegates & DataSource
   * 3.7 Generics
-* 4. Coding style
+4. Coding style
   * 4.1 General formatting 
   * 4.2 Error Handling
   * 4.3 Guard Statements
@@ -84,7 +84,7 @@ A file should define a single type. For the dependency injection pattern, a clas
 
 If a file uses an `Enum` and it is not private, it should be added to a new file.
 
-```
+```swift
 // FILE EyesColour.swift
 enum EyesColour {
     case brown
@@ -93,7 +93,7 @@ enum EyesColour {
 }
 ```
 
-```
+```swift
 // FILE Person.swift
 protocol PersonType {
     var name: String { get }
@@ -142,7 +142,7 @@ Some rules applies:
 * Functions are defined **after** properties.
 * `Delegates` and `DataSource` functions should be defined in a separate `extension`
 
-  ```
+  ```swift
     class MyViewController: UIViewController {
 
         // MARK: - Static variables
@@ -193,7 +193,7 @@ Golden rule:
 * When dealing with an acronym or other name that is usually written in all caps, use all caps in any names that use this in code. The exception is if this word is at the start of a name that needs to start with lowercase - in this case, use all lowercase for the acronym.
 * Prefer using *ID* rather than *Id*.
 
-    ```
+    ```swift
     // "HTML" is at the start of a constant name, so we use lowercase "html"
     let htmlBodyContent: String = "<p>Hello, World!</p>"
 
@@ -210,7 +210,7 @@ Golden rule:
 
 * Do not abbreviate, use shortened names, or single letter names.
 
-    ```
+    ```swift
     // PREFERRED
     class RoundAnimatingButton: UIButton {
         let animationDuration: NSTimeInterval
@@ -536,7 +536,7 @@ In general, developers tend to return `nil` when something can go wrong. Error h
 
 Example with a custom `Error`:
 
-```
+```swift
 struct Error: Swift.Error {
     public let file: StaticString
     public let function: StaticString
@@ -575,7 +575,7 @@ func printSomeFile() {
 
 * Always prefer an "early return" strategy using the `guard` as opposed to nesting code in `if` statements. 
 
-    ```
+    ```swift
     // PREFERRED
     func eatDoughnut(at index: Int) {
         guard index >= 0 && index < doughnuts.count else {
@@ -598,7 +598,7 @@ func printSomeFile() {
 
 * When unwrapping optionals, prefer guard statements as opposed to if statements to decrease the amount of nested indentation in your code.
 
-    ```
+    ```swift
     // PREFERRED
     guard let monkeyIsland = monkeyIsland else {
         return
@@ -622,7 +622,7 @@ func printSomeFile() {
 
 * If choosing between two different states, it makes more sense to use an `if` statement as opposed to a `guard` statement.
 
-    ```
+    ```swift
     // PREFERRED
     if isFriendly {
         print("Hello, nice to meet you!")
@@ -641,7 +641,7 @@ func printSomeFile() {
 
 * When unwrapping is **not** involved, the most important thing to keep in mind is the readability of the code
 
-    ```
+    ```swift
     // an `if` statement is readable here
     if operationFailed {
         return
@@ -656,7 +656,7 @@ func printSomeFile() {
 * If you need to unwrap multiple optionals, you have 2 possibilities:
   * If a failing unwrapping generates the same error, combine unwraps into a single `guard` statement
   
-     ```
+     ```swift
        guard let thingOne = thingOne,
            let thingTwo = thingTwo,
            let thingThree = thingThree else {
@@ -666,7 +666,7 @@ func printSomeFile() {
      
   * If different unwrap lead to different errors, separate them
   
-     ```
+     ```swift
        // separate statements because we handle a specific error in each case
        guard let thingOne = thingOne else {
            throw Error(message: "Unwrapping thingOne failed.")
@@ -702,7 +702,7 @@ func printSomeFile() {
 
 * When defining a case that has an associated value, make sure that this value is appropriately labeled as opposed to just types (e.g. `case hunger(hungerLevel: Int) `instead of `case hunger(Int)`).
 
-    ```
+    ```swift
     enum Problem {
         case attitude
         case hair
@@ -725,7 +725,7 @@ func printSomeFile() {
 
 * If you have a `default` case that shouldn't be reached, preferably throw an error (or handle it some other similar way such as asserting).
 
-    ```
+    ```swift
     func handleDigit(_ digit: Int) throws {
         switch digit {
         case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9:
@@ -744,7 +744,7 @@ func printSomeFile() {
 
 * If you don't plan on actually using the value stored in an optional, but need to determine whether or not this value is `nil`, explicitly check this value against `nil` as opposed to using `if let` syntax.
 
-    ```
+    ```swift
     // PREFERERED
     if someOptional != nil {
         // do something
@@ -758,7 +758,7 @@ func printSomeFile() {
 
 * Don't use `unowned`. Since we don't ever want to have implicit unwraps, we similarly don't want `unowned` properties.
 
-    ```
+    ```swift
     // PREFERRED
     weak var parentViewController: UIViewController?
     
@@ -769,7 +769,7 @@ func printSomeFile() {
 
 * When unwrapping optionals, use the same name for the unwrapped constant or variable where appropriate.
 
-    ```
+    ```swift
     guard let myValue = myValue else {
         return
     }
@@ -782,7 +782,7 @@ func printSomeFile() {
 
 * For read-only and computed property, provide the getter without the `get {}` around it.
 
-    ```
+    ```swift
     var computedProperty: String {
         if someBool {
             return "I'm a mighty pirate!"
@@ -795,7 +795,7 @@ func printSomeFile() {
 
 * Try to stick to the standard `newValue`/`oldValue` identifiers in the `willSet {}` and `didSet {}`, even if you can use your custom name.
 
-    ```
+    ```swift
     var storedProperty: String = "I'm selling these fine leather jackets." {
         willSet {
             print("will set to \(newValue)")
@@ -822,7 +822,7 @@ func printSomeFile() {
 
 * Omit the type of the parameters. 
 
-    ```
+    ```swift
     // PREFERRED
     doSomethingWithClosure() { response in
         print(response)
@@ -836,13 +836,13 @@ func printSomeFile() {
     
 * Use shorthand syntax when possible, it makes code clear and compact
 
-    ```
+    ```swift
     [1, 2, 3].flatMap { String($0) }
     ```
 
 * Don’t wrap the return parameter in parentheses unless it is required (e.g. if the type is optional or the closure is within another closure). Always wrap the arguments in the closure in a set of parentheses - use `()` to indicate no arguments and use `Void` to indicate that nothing is returned.
 
-    ```
+    ```swift
     let completionBlock: (Bool) -> Void = { (success) in
         print("Success? \(success)")
     }
@@ -858,7 +858,7 @@ func printSomeFile() {
 
 * Use trailing closure syntax unless the meaning of the closure is not obvious without the parameter name (an example of this could be if a method has parameters for success and failure closures).
 
-    ```
+    ```swift
     // PREFERRED: trailing closure
     doSomething(1.0) { (parameter1) in
         print("Parameter 1 is \(parameter1)")
