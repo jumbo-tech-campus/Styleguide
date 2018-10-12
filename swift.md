@@ -102,16 +102,16 @@ protocol PersonType {
 }
 
 class Person: PersonType {
-	 var name: String
+    var name: String
 	 
-	 init(name: String, eyes: EyesColour) {
-	     self.name = name
-	     self.eyes = eyes
-	 }
+    init(name: String, eyes: EyesColour) {
+        self.name = name
+        self.eyes = eyes
+    }
 	 
-	 func talk() {
-	     print("Hello, I'm \(name)!")
-	 }
+    func talk() {
+        print("Hello, I'm \(name)!")
+    }
 }
 ```
 
@@ -135,9 +135,9 @@ Some rules applies:
 * Attributes to the **top**, following this order:
     1. Static properties
     2. private IBOutlets
-    2. public IBOutlets (try to avoid them at all)
-    3. Private variables
-    4. Public variables
+    3. public IBOutlets (try to avoid them at all)
+    4. Private variables
+    5. Public variables
 
 * Functions are defined **after** properties.
 * `Delegates` and `DataSource` functions should be defined in a separate `extension`
@@ -232,7 +232,7 @@ Golden rule:
 
 * Include type information in constant or variable names when it is not obvious otherwise.
 
-    ```
+    ```swift
     // PREFERRED
     class ConnectionTableViewCell: UITableViewCell {
     
@@ -284,7 +284,7 @@ Golden rule:
 
 * Prefer method and function names that make use sites form **grammatical English phrases**.
 
-```
+```swift
 // PREFERRED
 x.insert(y, at: z)          “x, insert y at z”
 x.subViews(havingColor: y)  “x's subviews having color y”
@@ -298,7 +298,7 @@ x.nounCapitalize()
 
 * The first argument to initializer and factory methods calls should not form a phrase starting with the base name
 
-    ```
+    ```swift
     // PREFERRED
     let foreground = Color(red: 32, green: 64, blue: 128)
     let newPart = factory.makeWidget(gears: 42, spindles: 14)
@@ -326,7 +326,7 @@ x.nounCapitalize()
 
 For clarity, initializer arguments that correspond directly to a stored property have the same name as the property. Explicit `self.` is used during assignment to disambiguate them.
 
-```
+```swift
 // PREFERRED
 public struct Person {
     public let name: String
@@ -356,7 +356,7 @@ A protocol can be used for multiple purpose, thought it can be named in differen
 
 * A protocol should be named as a nouns if it describes what something is doing.
 
-    ```
+    ```swift
     // the name is a noun that describes what the protocol does
     protocol TableViewSectionProvider {
         func rowHeight(at row: Int) -> CGFloat
@@ -367,7 +367,7 @@ A protocol can be used for multiple purpose, thought it can be named in differen
 
 * A protocol should have the suffixes `-able`, `-ible`, or `-ing` if it describes a capability. 
 
-    ```
+    ```swift
     // the protocol is a capability, and we name it appropriately
     protocol Loggable {
         func logCurrentState()
@@ -377,7 +377,7 @@ A protocol can be used for multiple purpose, thought it can be named in differen
 
 * If a protocol is created for the purpose of the dependency injection or to generalize some of the functionalities, it should have the suffix `Type` to describe its generic purpose.
 
-    ```
+    ```swift
     // the protocol describe the `Person` class
     protocol PersonType {
         var name: String { get }
@@ -410,19 +410,19 @@ Methods on delegate protocols and delegate-like protocols, such as data sources,
 
   * If the method returns `Void` (such as those used to notify the delegate that an event has occurred), then the method’s base name is the **delegate’s source type** followed by an **indicative verb phrase** describing the event. The argument is unlabeled.
   
-        ```
+        ```swift
         func scrollViewDidBeginScrolling(_ scrollView: UIScrollView)
         ```
 
   * If the method returns `Bool` (such as those that make an assertion about the delegate’s source object itself), then the method’s name is the **delegate’s source type** followed by an **indicative or conditional verb phrase** describing the assertion. The argument is **unlabeled**.
         
-        ```
+        ```swift
         func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool
         ```
 
   * If the method returns some other value (such as those querying for information about a property of the delegate’s source object), then the method’s base name is a **noun phrase** describing the property being queried. The argument is **labeled with a preposition or phrase with a trailing preposition** that appropriately combines the noun phrase and the delegate’s source object.
 
-        ```
+        ```swift
         func numberOfSections(in scrollView: UIScrollView) -> Int
         ```
 
@@ -430,7 +430,7 @@ Methods on delegate protocols and delegate-like protocols, such as data sources,
 
 Generic type parameters should be descriptive, upper camel case names. When a type name doesn't have a meaningful relationship or role, use a traditional single uppercase letter such as `T`, `U`, or `V`.
 
-```
+```swift
 // PREFERRED
 struct Stack<Element> { ... }
 func write<Target: OutputStream>(to target: inout Target)
@@ -450,7 +450,7 @@ func swap<Thing>(_ a: inout Thing, _ b: inout Thing)
 * Prefer `let` to `var` whenever possible.
 * Prefer the composition of `map`, `filter`, `reduce`, etc. over iterating when transforming from one collection to another.
 
-    ```
+    ```swift
     // PREFERRED
     let stringOfInts = [1, 2, 3].flatMap { String($0) }
     let evenNumbers = [4, 8, 15, 16, 23, 42].filter { $0 % 2 == 0 }
@@ -469,7 +469,7 @@ func swap<Thing>(_ a: inout Thing, _ b: inout Thing)
 * Be careful when calling `self` directly from an escaping closure as this can cause a retain cycle. Declare is as `[weak self]`.
 * Don't place parentheses around control flow predicates.
 
-    ```
+    ```swift
     // PREFERRED
     if x == y {
         /* ... */
@@ -483,7 +483,7 @@ func swap<Thing>(_ a: inout Thing, _ b: inout Thing)
 
 * Avoid writing out an enum type - use shorthand.
 
-    ```
+    ```swift
     // PREFERRED
     imageView.setImageWithURL(url, type: .person)
 
@@ -494,7 +494,7 @@ func swap<Thing>(_ a: inout Thing, _ b: inout Thing)
 * Don't write `self`, unless it is required.
 * When using a statement such as `else`, `catch`, etc. that follows a block, put this keyword on the same line as the block. Follow the [1TBS style](https://en.m.wikipedia.org/wiki/Indentation_style#1TBS):
 
-    ```
+    ```swift
     // PREFERRED
     if someBoolean {
         // do something
