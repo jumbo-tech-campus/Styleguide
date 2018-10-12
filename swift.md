@@ -87,8 +87,8 @@ A file should define a single type. For the dependency injection pattern, a clas
 If a file uses an `Enum` and it is not private, it should be added to a new file.
 
 ```swift
-// FILE EyesColour.swift
-enum EyesColour {
+// FILE EyesColor.swift
+enum EyesColor {
     case brown
     case green
     case blue
@@ -99,14 +99,14 @@ enum EyesColour {
 // FILE Person.swift
 protocol PersonType {
     var name: String { get }
-    var eyes: EyesColour { get }
+    var eyes: EyesColor { get }
     func talk()
 }
 
 class Person: PersonType {
     var name: String
 
-    init(name: String, eyes: EyesColour) {
+    init(name: String, eyes: EyesColor) {
         self.name = name
         self.eyes = eyes
     }
@@ -383,14 +383,14 @@ A protocol can be used for multiple purpose, thought it can be named in differen
     // the protocol describe the `Person` class
     protocol PersonType {
         var name: String { get }
-        var eyes: EyesColour { get }
+        var eyes: EyesColor { get }
         func talk()
     }
 
     class Person: PersonType {
 	     var name: String
 
-	     init(name: String, eyes: EyesColour) {
+	     init(name: String, eyes: EyesColor) {
 	         self.name = name
 	         self.eyes = eyes
 	     }
