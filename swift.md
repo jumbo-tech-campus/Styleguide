@@ -1,10 +1,10 @@
 # Swift Style Guide
 
-This style guide follow the [Apple's API Design Guidelines](https://swift.org/documentation/api-design-guidelines/), be sure to read them.
+This style guide follows the [Apple's API Design Guidelines](https://swift.org/documentation/api-design-guidelines/): be sure to read them.
 
-This guide will describe the swift style guide with a top-bottom approach, starting form the file name and arriving to the code style convention.
+This guide will describe the swift style guide with a top-to-bottom approach, starting from the file naming conventions and arriving to code style conventions.
 
-A special chapter is reserved from _special practise_ that could be implemented to help us in the daily work.
+A special chapter is reserved from _special practise_ that could be implemented to help us in our daily work.
 
 This guide was last updated on October 11, 2018 and it's based on the following sources:
 
@@ -49,20 +49,19 @@ This guide was last updated on October 11, 2018 and it's based on the following 
 
 All Swift source files end with the extension **.swift**.
 
-In general, the name of a source file should best describes the primary entity that it contains. Based on the entity itself, the name of the file changes:
+In general, the name of a source file should best describe the primary entity that it contains. Based on the entity itself, the name of the file changes:
 
 * A file containing a single type `MyClass` is named **MyClass.swift**.
 * A file containing a single class `MyClass` and some top-level helper methods is named **MyClass.swift**.
 * A file containing a single extension to a class `MyClass` that adds conformance to a protocol `MyProtocol` is named **MyClass+MyProtocol.swift**.
-* A file containing multiple extensions to a class `MyClass` that add conformances, nested types, or other functionality can be named in a generic way like **MyType+Additions.swift**.
-* A file containing constants to a class `MyClass` that add conformances, nested types, or other functionality can be named in a generic way like **MyType+Additions.swift**.
+* A file containing multiple extensions or constants to a class `MyClass` that adds conformances, nested types, or other functionality can be named in a generic way like **MyType+Additions.swift**.
 
 ### 1.2 Characters
 
 * Source files are encoded in UTF-8.
 * Tab characters are **not** used for indentation.
-* File should start without any empty line.
-* File should start without copyright notice.
+* File should start without any empty lines.
+* File should start without a copyright notice.
 * File should end with a single empty line.
 
 
@@ -70,7 +69,7 @@ In general, the name of a source file should best describes the primary entity t
 
 ### 2.1 Import statements
 
-Import statements are located at the top of a source file. They are grouped, imports in each group have one blank line between each group:
+Import statements are located at the top of a source file. They are grouped, and each group has one blank line between it and the next group:
 
 1. Modules imported with `@testable` (only present in test sources)
 2. Module/submodule imports not under test
@@ -126,13 +125,13 @@ For example:
 
 ### 2.3 Variables and Functions
 
-The order of variables and functions in a source file can have a great effect on readability. However, there is no single correct recipe for how to do it: different files may order their contents in different ways.
+The ordering of variables and functions in a source file can have a great effect on readability. However, there is no single correct recipe for how to do it: different files may order their contents in different ways.
 
-What is important is that **each file and type uses some logical order**, which is easy to understand reading the code.
+What is important is that **each file and type uses some logical order**, which is easy to understand when reading the code.
 
 When deciding on the logical order of members, please use `// MARK: -` to group functions related to the same functionality. These comments are also interpreted by Xcode and provide bookmarks in the source window’s navigation bar.
 
-Some rules applies:
+Some rules apply:
 
 * Attributes to the **top**, following this order:
     1. Static properties
