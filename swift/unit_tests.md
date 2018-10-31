@@ -50,8 +50,18 @@ class BoolSpec: QuickSpec {
         describe("Bool") {
             var sut: Bool!
 
-            describe("negating the value") {
-                ...
+            context("with a false value") {
+                beforeEach {
+                    sut = false
+
+                    ...
+                }
+
+                afterEach {
+                    ...
+
+                    sut = nil
+                }
             }
         }
     }
