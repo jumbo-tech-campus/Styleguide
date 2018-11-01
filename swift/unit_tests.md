@@ -1,32 +1,52 @@
 # Unit test guidelines
 
-Wring unit tests can be done in a great many ways, but all of them have some default rules to adhere to. Further more we recommend using Quick & Nimble for unit tests in Swift, with writing mocks as described below.
+Writing unit tests can be done in many ways, but all of them have some default rules to adhere to. Further more we recommend using [Quick](https://github.com/Quick/Quick) & [Nimble](https://github.com/Quick/Nimble) for unit tests in Swift, with writing mocks as described below.
 
 ## General guidelines
 
 - Never use a shared instance of a class in any part of a unit test, i.e.
 ```swift
-UserDefaults.sharedInstance
-UIApplication.sharedApplication
+UserDefaults.standard
+UIApplication.shared
 ```
-- Never use any form of (async) waiting directly in the tests
+- Never use any form of waiting directly in the tests
 ```swift
 sleep()
 NSRunLoop.current
 while (value != expected) { }
 ```
 
-To wait for (async) code to finish use `XCTestExpectation` when writing a `XCTest` or `expectEventually` when writing a spec using `Quick & Nimble`
+To wait for code to finish use `XCTestExpectation` when writing a `XCTest` or `expectEventually` when writing a spec using `Quick & Nimble`
 
 ## Quick & Nimble guidelines
 
 Quick & Nimble provide 5 important DSL keywords, below follow which should be used in different scenarios.
+Each of these keywords takes a string, which is a description of the block to follow.
+All of these describing strings will be used by the framework to generate the test function, i.e
+```
+describe("MyClass") {
+    describe("execute the function") {
+        it("sets the variable") {
+        }
+    }
+}
+```
+Would become `MyClass__executing_the_function__sets_the_variable`. 
 
-See [PriceFormatterSpec.swift](https://jmb.gitlab.schubergphilis.com/JumboApp/jumbo-ios/blob/a5d61a077169ea88f4439bae5e06becb82601975/Jumbo/Tests/JumboTests/Products/Resources/PriceFormatterSpec.swift) for a example following these guidelines.
+These test functions read in one go
+ - Which object is being tested
+ - Which functionality is being tested
+ - What is expected
+
+To make sure these test functions all read in a similar fassion Always use **present tense** for DSL keyword descriptions.
+You can check this by replacing the first `describe` keyword with 'when':
+
+`when` MyClass execute the function it sets the variable
+
 
 ### Describe
 
-Use describe when `starting a spec function`. This is also the place where the `sut` is defined:
+Use `describe` when **starting a spec function**. This is also the place where the `sut` is defined:
 ```swift
 class BoolSpec: QuickSpec {
     override func spec() {
@@ -40,7 +60,7 @@ class BoolSpec: QuickSpec {
 
 ```
 
-The other use of describe is to describe `a piece functionality within the class` under test. 
+The other use of describe is to describe **a piece functionality within the class** under test. 
 
 **Rule of thumb**: When adding a `beforeEach` statement in a `describe` it should only prepare for `context` calls to follow. Don't execute any code on the class under test. 
 
@@ -52,8 +72,18 @@ class BoolSpec: QuickSpec {
         describe("Bool") {
             var sut: Bool!
 
-            describe("negating the value") {
-                ...
+            context("with a false value") {
+                beforeEach {
+                    sut = false
+
+                    ...
+                }
+
+                afterEach {
+                    ...
+
+                    sut = nil
+                }
             }
         }
     }
@@ -61,10 +91,9 @@ class BoolSpec: QuickSpec {
 
 ```
 
+### Context
 
-- Context
-
-Use context to define the different flows of the a certain functionality within the `describe` closure, for example;
+Use `context` to define the different flows of the a certain functionality within the `describe` closure, for example:
 
 ```swift
 class BoolSpec: QuickSpec {
@@ -87,9 +116,9 @@ class BoolSpec: QuickSpec {
 
 ```
 
-- BeforeEach
+### BeforeEach
 
-BeforeEach should only be used within `describe` or `context` closures. Use beforeEach for;
+`beforeEach` should only be used within `describe` or `context` closures. Use beforeEach for;
 1. Preparing mocks & test input data
 2. Creating or modifying the `sut`
 3. Execute the code under test (as defined in the `describe` closure)
@@ -121,9 +150,9 @@ class BoolSpec: QuickSpec {
 
 ```
 
-- It
+### It
 
-It is where assertions are executed in the form of an `expect()` call.
+`it` is where assertions are executed in the form of an `expect()` call.
 
 **Rule of thumb**: Only execute one `expect` call per `it` closure
 
@@ -162,13 +191,13 @@ class BoolSpec: QuickSpec {
 
 ```
 
-- AfterEach
+### AfterEach
 
-AfterEach should only be used within `describe` or `context` closures. Use afterEach for;
-1. Nillify all variables instantiated in the current `describe` / `context`
-2. Any other cleanup your test specificly need
+`afterEach` should only be used within `describe` or `context` closures. Use afterEach for;
+1. Nullify all variables instantiated in the current `describe` / `context`
+2. Any other cleanup your test specifically need
 
-**note**: Setting all variables to `nil` technically isn't nessecary, but it's a small effort to add them and have certainty all values are reset correctly.
+**Note**: Setting all variables to `nil` technically isn't necessary, but it's a small effort to add them and have certainty all values are reset correctly.
 
 
 ```swift
