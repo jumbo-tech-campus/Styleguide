@@ -21,6 +21,37 @@ To wait for code to finish use `XCTestExpectation` when writing a `XCTest` or `e
 ## Quick & Nimble guidelines
 
 Quick & Nimble provide 5 important DSL keywords, below follow which should be used in different scenarios.
+Each of these keywords takes a string, which is a description of the block to follow.
+All of these describing strings will be used by the framework to generate the test function, i.e
+```
+describe("MyClass") {
+    describe("execute the function") {
+        it("sets the variable") {
+        }
+    }
+}
+```
+Would become `MyClass__executing_the_function__sets_the_variable`. 
+
+These test functions read in one go
+ - Which object is being tested
+ - Which functionality is being tested
+ - What is expected
+
+To make sure these test functions all read similar, a few guidelines
+- Always use present tense for DSL keyword descriptions
+expect
+- Use -ing suffix for async tests, ie. when expecting a delegate metho to be called
+
+```
+describe("") {
+    describe("") {
+        it("") {
+        }
+    }
+}
+```
+
 
 ### Describe
 
