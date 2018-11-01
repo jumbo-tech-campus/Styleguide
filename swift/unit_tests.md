@@ -206,7 +206,7 @@ class BoolSpec: QuickSpec {
 1. Nullify all variables instantiated in the current `describe` / `context`
 2. Any other cleanup your test specifically need
 
-**note**: Setting all variables to `nil` technically isn't necessary, but it's a small effort to add them and have certainty all values are reset correctly.
+**Note**: Setting all variables to `nil` technically isn't necessary, but it's a small effort to add them and have certainty all values are reset correctly.
 
 
 ```swift
