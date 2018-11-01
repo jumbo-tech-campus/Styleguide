@@ -38,19 +38,10 @@ These test functions read in one go
  - Which functionality is being tested
  - What is expected
 
-To make sure these test functions all read similar, a few guidelines
-- Always use present tense for DSL keyword descriptions
-expect
-- Use -ing suffix for async tests, ie. when expecting a delegate metho to be called
+To make sure these test functions all read in a similar fassion Always use **present tense** for DSL keyword descriptions.
+You can check this by replacing the first `describe` keyword with 'when':
 
-```
-describe("") {
-    describe("") {
-        it("") {
-        }
-    }
-}
-```
+`when` MyClass execute the function it sets the variable
 
 
 ### Describe
