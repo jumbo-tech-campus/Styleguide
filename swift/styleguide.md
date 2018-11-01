@@ -447,7 +447,7 @@ func swap<Thing>(_ a: inout Thing, _ b: inout Thing)
 
     ```swift
     // PREFERRED
-    let stringOfInts = [1, 2, 3].flatMap { String($0) }
+    let stringOfInts = [1, 2, 3].compactMap { String($0) }
     let evenNumbers = [4, 8, 15, 16, 23, 42].filter { $0 % 2 == 0 }
 
     // NOT PREFERRED
@@ -832,7 +832,7 @@ func printSomeFile() {
 * Use shorthand syntax when possible, it makes code clear and compact
 
     ```swift
-    [1, 2, 3].flatMap { String($0) }
+    [1, 2, 3].compactMap { String($0) }
     ```
 
 * Don’t wrap the return parameter in parentheses unless it is required (e.g. if the type is optional or the closure is within another closure). Always wrap the arguments in the closure in a set of parentheses - use `()` to indicate no arguments and use `Void` to indicate that nothing is returned.
