@@ -243,7 +243,7 @@ class BoolSpec: QuickSpec {
 
 ### Terminology
 
-When it comes to writing mocks in Swift theres a great many ways developers do this, but we can never agree upon the naming.
+When it comes to writing mocks in Swift theres many ways for developers do this, but we can never agree upon the naming.
 
 Imagine a protocol `MyProtocol`, some would create `MyProtocolMock` where others use `MyProtocolStub`. Which of them is correct? Neither, see below.
 
@@ -270,6 +270,10 @@ As you can read, neither `...Stub` nor `...Mock` would cover the full load of a 
 The `...Double` suffix is coined as wel for this goal, derived from body-double, but this term on it's own only adds confusion. In the end calling your 'minimal' implementation of a class a `Mock` feels most natural, where a mock is build up from two parts;
  - Captures: Basically the Mocks as described above. They register the captured method calls
  - Stubs: Stubs as described above
+ 
+ Both captures and stubs should be stored in a struct which can be instantiated without pasing parameters. 
+ `Stubs` speaks for itself. It contains stubs for both variables & method calls. Stubs should either be defined as an optional or with a default value.
+ Within `Captures` nested structs should be defined for each method to capture, in these nested structs the paramters of a function call shoud be stored. The definition of each variable within `Captures` should be optional. This way by checking the `Captures` variable for nil you can see wether or not a function is called, plus you can check the individual paramters passed to the call. 
 
 This way we have one object to wrap a full protocol in, having both mocking and stubbing capabilities.
 
@@ -286,12 +290,12 @@ protocol ExampleProtocol {
 class ExampleProtocolMock {
     var Stubs {
         var testVar = String()
-        var returnFunction: String()
+        var returnFunction = String()
     }
 
     var Captures {
-        var doFunction: DoFunction
-        var returnFunction: ReturnFunction
+        var doFunction: DoFunction?
+        var returnFunction: ReturnFunction?
 
         struct DoFunction {
             let var: String
