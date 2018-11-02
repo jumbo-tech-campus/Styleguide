@@ -238,3 +238,93 @@ class BoolSpec: QuickSpec {
 }
 
 ```
+
+## Writing Swift mocks
+
+### Terminology
+
+When it comes to writing mocks in Swift theres many ways for developers to do this, but we can never agree upon the naming.
+
+Imagine a protocol `MyProtocol`, some would create `MyProtocolMock` where others use `MyProtocolStub`. Which of them is correct? Neither, see below.
+
+#### Mock
+
+Mocks are objects that register calls they receive.
+In test assertion we can verify on Mocks that all expected actions were performed.
+![](https://cdn-images-1.medium.com/max/1600/0*k7mwTF60slyMxRlm.png)
+
+#### Stub
+
+Stub is an object that holds predefined data and uses it to answer calls during tests. It is used when we cannot or don’t want to involve objects that would answer with real data or have undesirable side effects.
+![](https://cdn-images-1.medium.com/max/1600/0*KdpZaEVy6GNnrUpB.png)
+
+#### Fake
+
+Fakes are objects that have working implementations, but not same as production one. Usually they take some shortcut and have simplified version of production code.
+![](https://cdn-images-1.medium.com/max/1600/0*snrzYwepyaPu3uC9.png)
+
+### Example mock from protocol
+
+As you can read, neither `...Stub` nor `...Mock` would cover the full load of a object we want to write. Our test-objects should be able to mimic a protocol by both setting stubs and registering received method calls. We don't want multiple files for a single Protocol in order to both mock & stub them, thus we want one object which can both stub and mock a protocol.
+
+The `...Double` suffix is coined as wel for this goal, derived from body-double, but this term on it's own only adds confusion. In the end calling your 'minimal' implementation of a class a `Mock` feels most natural, where a mock is build up from two parts;
+ - Captures: Basically the Mocks as described above. They register the captured method calls
+ - Stubs: Stubs as described above
+ 
+ Both captures and stubs should be stored in a struct which can be instantiated without passing parameters. 
+ `Stubs` speaks for itself. It contains stubs for both variables & method calls. Stubs should either be defined as an optional or with a default value.
+ Within `Captures` nested structs should be defined for each method to capture, in these nested structs the parameters of a function call should be stored. The definition of each variable within `Captures` should be optional. This way by checking the `Captures` variable for nil you can see wether or not a function is called, plus you can check the individual parameters passed to the call. 
+
+This way we have one object to wrap a full protocol in, having both mocking and stubbing capabilities.
+
+```swift
+protocol ExampleProtocol {
+    var testVar: String { get }
+
+    func doFunction(var: String)
+    func returnFunction(number: Int, otherNumber: Int) -> String
+}
+```
+
+```swift
+class ExampleProtocolMock {
+    var Stubs {
+        var testVar = String()
+        var returnFunction = String()
+    }
+
+    var Captures {
+        var doFunction: DoFunction?
+        var returnFunction: ReturnFunction?
+
+        struct DoFunction {
+            let var: String
+        }
+
+        struct ReturnFunction {
+            let number: Int
+            let otherNumber: Int
+        }
+    }
+
+    var stubs = Stubs()
+    var captures = Captures()
+}
+
+extension ExampleProtocolDouble: ExampleProtocol {
+    var testVar: String { 
+        return stubs.testVar
+    }
+
+    func doFunction(var: String) {
+        captures.doFunction = Captures.DoFunction(var: var)
+    }
+
+    func returnFunction(number: Int, otherNumber: Int) -> String {
+        captures.returnFunction = Captures.ReturnFunction(number: number, otherNumber: otherNumber)
+
+        return stubs.returnFunction
+    }
+}
+
+```
