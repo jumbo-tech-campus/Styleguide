@@ -243,7 +243,7 @@ class BoolSpec: QuickSpec {
 
 ### Terminology
 
-When it comes to writing mocks in Swift theres many ways for developers do this, but we can never agree upon the naming.
+When it comes to writing mocks in Swift theres many ways for developers to do this, but we can never agree upon the naming.
 
 Imagine a protocol `MyProtocol`, some would create `MyProtocolMock` where others use `MyProtocolStub`. Which of them is correct? Neither, see below.
 
@@ -271,9 +271,9 @@ The `...Double` suffix is coined as wel for this goal, derived from body-double,
  - Captures: Basically the Mocks as described above. They register the captured method calls
  - Stubs: Stubs as described above
  
- Both captures and stubs should be stored in a struct which can be instantiated without pasing parameters. 
+ Both captures and stubs should be stored in a struct which can be instantiated without passing parameters. 
  `Stubs` speaks for itself. It contains stubs for both variables & method calls. Stubs should either be defined as an optional or with a default value.
- Within `Captures` nested structs should be defined for each method to capture, in these nested structs the paramters of a function call shoud be stored. The definition of each variable within `Captures` should be optional. This way by checking the `Captures` variable for nil you can see wether or not a function is called, plus you can check the individual paramters passed to the call. 
+ Within `Captures` nested structs should be defined for each method to capture, in these nested structs the parameters of a function call should be stored. The definition of each variable within `Captures` should be optional. This way by checking the `Captures` variable for nil you can see wether or not a function is called, plus you can check the individual parameters passed to the call. 
 
 This way we have one object to wrap a full protocol in, having both mocking and stubbing capabilities.
 
