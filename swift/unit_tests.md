@@ -247,6 +247,8 @@ class BoolSpec: QuickSpec {
 
 When it comes to writing mocks in Swift theres many ways for developers to do this, but we can never agree upon the naming.
 
+*Source:* https://blog.pragmatists.com/test-doubles-fakes-mocks-and-stubs-1a7491dfa3da
+
 Imagine a protocol `MyProtocol`, some would create `MyProtocolMock` where others use `MyProtocolStub`. Which of them is correct? Neither, see below.
 
 #### Mock
