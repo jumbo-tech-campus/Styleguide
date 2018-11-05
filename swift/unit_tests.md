@@ -332,3 +332,32 @@ extension ExampleProtocolDouble: ExampleProtocol {
 }
 
 ```
+
+### Using a mock/stub in a spec
+
+When using a mock or a stub in a spec the variables where the mocks are stored in should have a suffix indicating it's storing a mock or a stub. Suffix mock variables with `Mock` and suffix stub variables with `Stub`.
+
+```swift
+class ExampleSpec: QuickSpec {
+    override func spec() {
+        describe("Example") {
+            var sut: Bool!
+
+            // PREFERED
+            var exampleProtocolMock: ExampleProtocolMock!
+            var exampleProtocolStub: ExampleProtocolStub!
+
+            // NOT PREFERED
+            var exampleProtocol: ExampleProtocolMock!
+            var exampleProtocol: ExampleProtocolStub!
+
+            afterEach {
+                sut = nil
+            }
+
+            ...
+        }
+    }
+}
+
+```
