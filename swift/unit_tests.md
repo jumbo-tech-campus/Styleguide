@@ -46,7 +46,9 @@ You can check this by replacing the first `describe` keyword with 'when':
 
 ### Describe
 
-Use `describe` when **starting a spec function**. This is also the place where the `sut` is defined:
+Use `describe` when **starting a spec function**. This is also the place where the `sut` is defined.
+The `sut` should always be the first variable defined in a Spec.
+
 ```swift
 class BoolSpec: QuickSpec {
     override func spec() {
