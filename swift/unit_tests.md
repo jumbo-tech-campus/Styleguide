@@ -46,7 +46,9 @@ You can check this by replacing the first `describe` keyword with 'when':
 
 ### Describe
 
-Use `describe` when **starting a spec function**. This is also the place where the `sut` is defined:
+Use `describe` when **starting a spec function**. This is also the place where the `sut` is defined.
+The `sut` should always be the first variable defined in a Spec.
+
 ```swift
 class BoolSpec: QuickSpec {
     override func spec() {
@@ -245,6 +247,8 @@ class BoolSpec: QuickSpec {
 
 When it comes to writing mocks in Swift theres many ways for developers to do this, but we can never agree upon the naming.
 
+*Source:* https://blog.pragmatists.com/test-doubles-fakes-mocks-and-stubs-1a7491dfa3da
+
 Imagine a protocol `MyProtocol`, some would create `MyProtocolMock` where others use `MyProtocolStub`. Which of them is correct? Neither, see below.
 
 #### Mock
@@ -324,6 +328,35 @@ extension ExampleProtocolDouble: ExampleProtocol {
         captures.returnFunction = Captures.ReturnFunction(number: number, otherNumber: otherNumber)
 
         return stubs.returnFunction
+    }
+}
+
+```
+
+### Using a mock/stub in a spec
+
+When using a mock or a stub in a spec the variables where the mocks are stored in should have a suffix indicating it's storing a mock or a stub. Suffix mock variables with `Mock` and suffix stub variables with `Stub`.
+
+```swift
+class ExampleSpec: QuickSpec {
+    override func spec() {
+        describe("Example") {
+            var sut: Bool!
+
+            // PREFERED
+            var exampleProtocolMock: ExampleProtocolMock!
+            var exampleProtocolStub: ExampleProtocolStub!
+
+            // NOT PREFERED
+            var exampleProtocol: ExampleProtocolMock!
+            var exampleProtocol: ExampleProtocolStub!
+
+            afterEach {
+                sut = nil
+            }
+
+            ...
+        }
     }
 }
 
