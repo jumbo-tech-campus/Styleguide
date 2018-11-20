@@ -2,6 +2,8 @@
 
 # Metrics styleguide
 
+This styleguide is used so all microservices will send the same kind of statistics.
+
 ## Incoming API requests
 
 Statistics for requests handled by the service.
@@ -54,7 +56,7 @@ Tags:
 
 - `service` // Name of the service sending the statistic
 - `database_type`
-- `database_name` // Is this necessary?
+- `database_name`
 - `query_type`
   eq: find, create, select, getall, update, findAll. Different query names per different database
 - `result` // succes, failed
