@@ -18,7 +18,10 @@ Tags:
 
 - `service` // Name of the service sending the statistic
 - `method`
-- `path` // Path should not include ID's of resources. In Hapi use `request.route.path`
+- `path`
+  Path should not include ID's of resources. In Hapi use `request.route.path`
+  Example Hapi: /v0/product-lists/social-lists/{listID}
+  Example Restify: /v4/product/:id
 - `statuscode`
 
 ## Outgoing requests
