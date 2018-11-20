@@ -8,13 +8,12 @@ Statistics for requests handled by the service.
 
 Type: `statsd timing`
 
-Stat name: `request`
+Stat name: `incoming_request`
 
 Creates: count, 95p, max, min, avg
 
 Tags:
 
-- env // Will be added automatically
 - service: Name of the service sending the statistic
 - method
 - path // Path should not include ID's of resources. In Hapi use `request.route.path`
@@ -26,13 +25,12 @@ Statistics for requests going from the service to another service
 
 Type: `statsd timing`
 
-Stat name: `external` // Up for discussion, currently httprequest
+Stat name: `outgoing_request`
 
 Creates: count, 95p, max, min, avg
 
 Tags:
 
-- env // Will be added automatically
 - service: Name of the service sending the statistic
 - external_service: Name of external service 
 - method
@@ -54,9 +52,9 @@ Creates: count, 95p, max, min, avg
 
 Tags:
 
-- env // Will be added automatically
 - service: Name of the service sending the statistic
 - Database type
+- Database name // Is this necessary?
 - Query Type
-  eq: find, create, select, getall, update, findAll
-- Result
+  eq: find, create, select, getall, update, findAll. Different query names per different database
+- Result // succes, failed
