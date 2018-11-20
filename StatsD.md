@@ -14,10 +14,10 @@ Creates: count, 95p, max, min, avg
 
 Tags:
 
-- service: Name of the service sending the statistic
-- method
-- path // Path should not include ID's of resources. In Hapi use `request.route.path`
-- statuscode
+- `service` // Name of the service sending the statistic
+- `method`
+- `path` // Path should not include ID's of resources. In Hapi use `request.route.path`
+- `statuscode`
 
 ## Outgoing requests
 
@@ -31,12 +31,12 @@ Creates: count, 95p, max, min, avg
 
 Tags:
 
-- service: Name of the service sending the statistic
-- external_service: Name of external service 
-- method
-- url
-- statuscode
-- result
+- `service` // Name of the service sending the statistic
+- `external_service` // Name of external service 
+- `method`
+- `url`
+- `statuscode`
+- `result`
   result of the request, (badrequest, failed, internal, success)
   The result is based on statuscode. If no response is received (timeout or socket hangup) result should be failed.
 
@@ -52,9 +52,9 @@ Creates: count, 95p, max, min, avg
 
 Tags:
 
-- service: Name of the service sending the statistic
-- Database type
-- Database name // Is this necessary?
-- Query Type
+- `service` // Name of the service sending the statistic
+- `database_type`
+- `database_name` // Is this necessary?
+- `query_type`
   eq: find, create, select, getall, update, findAll. Different query names per different database
-- Result // succes, failed
+- `result` // succes, failed
