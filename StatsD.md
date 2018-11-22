@@ -10,7 +10,7 @@ Statistics for requests handled by the service.
 
 Type: `statsd timing`
 
-Stat name: `incoming_request`
+Stat name: `api.incoming_request`
 
 Creates: count, 95p, max, min, avg
 
@@ -23,6 +23,9 @@ Tags:
   Example Hapi: /v0/product-lists/social-lists/{listID}
   Example Restify: /v4/product/:id
 - `statuscode`
+- `result`
+  result of the request, (badrequest, failed, internal, success)
+  The result is based on statuscode. 
 
 ## Outgoing requests
 
@@ -30,7 +33,7 @@ Statistics for requests going from the service to another service
 
 Type: `statsd timing`
 
-Stat name: `outgoing_request`
+Stat name: `api.outgoing_request`
 
 Creates: count, 95p, max, min, avg
 
@@ -51,7 +54,7 @@ statsd timing for queries, (MongoDB, Couchbase, or other databases)
 
 type: `statsd timing`
 
-Stat name: `query`
+Stat name: `api.query`
 
 Creates: count, 95p, max, min, avg
 
