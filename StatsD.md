@@ -66,3 +66,15 @@ Tags:
 - `query_type`
   eq: find, create, select, getall, update, findAll. Different query names per different database
 - `result` // succes, failed
+
+## Uncaught Exceptions
+
+Statsd Increment for measuring uncaught exceptions. This will allow us to make alerts for uncaught exceptions.
+
+type: `statsd increment`
+
+Stat name: `api.uncaught_exception`
+
+Tags:
+
+* `service` // Name of the service sending the statistic
