@@ -24,7 +24,7 @@ Tags:
   Example Restify: /v4/product/:id
 - `statuscode`
 - `result`
-  result of the request, (badrequest, failed, internal, success)
+  result of the request, (client_error, failed, internal, success)
   The result is based on statuscode. 
 
 ## Outgoing requests
@@ -45,7 +45,7 @@ Tags:
 - `url`
 - `statuscode`
 - `result`
-  result of the request, (badrequest, failed, internal, success)
+  result of the request, (client_error, failed, internal, success)
   The result is based on statuscode. If no response is received (timeout or socket hangup) result should be failed.
 
 ## Queries
