@@ -653,7 +653,8 @@ func printSomeFile() {
   * If a failing unwrapping generates the same error, combine unwraps into a single `guard` statement
 
      ```swift
-       guard let thingOne = thingOne,
+       guard 
+           let thingOne = thingOne,
            let thingTwo = thingTwo,
            let thingThree = thingThree else {
            return
