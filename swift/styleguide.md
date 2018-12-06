@@ -134,11 +134,12 @@ When deciding on the logical order of members, please use `// MARK: -` to group 
 Some rules apply:
 
 * Attributes to the **top**, following this order:
-    1. Static properties
-    2. private IBOutlets
-    3. public IBOutlets (try to avoid them at all)
-    4. Private variables
-    5. Public variables
+    1. Type aliasses
+    2. Static properties
+    3. private IBOutlets
+    4. public IBOutlets (try to avoid them at all)
+    5. Private variables
+    6. Public variables
 
 * Functions are defined **after** properties.
 * `Delegates` and `DataSource` functions should be defined in a separate `extension`
