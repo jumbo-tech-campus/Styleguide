@@ -2,8 +2,6 @@
 
 This document contains all conventions decided upon by our team on how to implement RxSwift in our MVVM architecture.
 
-Other then these conventions a number of convenience extensions can be found in `ReactiveExtensions.swift` within the `JumboCore` module.
-
 ## Table Of Contents
 
 - [Protocols](#protocols)
@@ -17,8 +15,8 @@ In order to assure all (new) MVVM powered views are implemented in the same way
 
 ### ReactiveConnectable
 
-`ReactiveConnectable` is thé base protocol for any `-Model` type class, for example a `ViewModel` or a `TrackingModel`. It requires any implementation to define an `Input` & `Output` type, most often implemented in teh form of a struct.
-In most cases the `Input` will contain defaultly instantiated `PublishSubject` subjects to any event generator can bind to it, causing events to flow into your type.
+`ReactiveConnectable` is the base protocol for any `-Model` type class, for example a `ViewModel` or a `TrackingModel`. It requires any implementation to define an `Input` & `Output` type, most of the time implemented in the form of a struct.
+In most cases the `Input` will contain defaultly instantiated `PublishSubject` subjects to any event generator can bind to it, causing events to flow into your types.
 
 The gist of `ReactiveConnectable` is as follows;
 ```swift
@@ -32,10 +30,10 @@ protocol ReactiveConnectable {
     func transform(input: Input) -> Output
 }
 ```
-Please note; The gist above might be outdated, always check the production project for the latest version.
+Please note: The gist above might be outdated, always check the production project for the latest version.
 
 #### Conventions
-- The `Input` / `Output` properties should not be renamed in the implementation, even if the type can be infered
+- The `Input` / `Output` properties should not be renamed in the implementation, even if the type can be inferred
 - The `Input` / `Output` properties should not be assignable by after getting an initial value
 - The transform function should only be called when initializing the `output` variable, see example below.
 - The conformance to `ReactiveConnectabale` should always be implemented in a extension of your type
