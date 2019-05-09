@@ -35,7 +35,7 @@ Please note: The gist above might be outdated, always check the production proje
 #### Conventions
 - The `Input` / `Output` properties should not be renamed in the implementation, even if the type can be inferred
 - The `Input` / `Output` properties should not be assignable by after getting an initial value
-- The transform function should only be called when initializing the `output` variable, see example below.
+- The `transform` function should only be called when initializing the `output` variable, see example below.
 - The conformance to `ReactiveConnectabale` should always be implemented in a extension of your type
    + The only exceptions are the `input` and `output` stored properties
 
@@ -61,7 +61,7 @@ extension ExampleViewModel: ReactiveConnectable {
 
 ### Binding to ReactiveConnectable
 
-Binding UI to the `ReactiveConnectable` protocol should always happen by a `-Binding` protocol. For example the protcol definitions to bind a `ViewModel` or a `TrackingModel`;
+Binding UI to the `ReactiveConnectable` protocol should always happen by a `-Binding` protocol. For example the protocol definitions to bind a `ViewModel` or a `TrackingModel`;
 ```swift
 protocol ViewModelBindable {
     typealias ViewModelType: ReactiveConnectable
@@ -99,7 +99,7 @@ extension TrackingModelBindable {
 This way we assure multiple `ReactiveConnectable` types can be bound to from a view controller, or any other type binding to `ReactiveConnectable` for that matter, and we limit the amount of `ViewModel`s and `TrackingModel`s which can bound to a single view controller at the same time.
 The view controller should always implement a `-Bindable` protocol in an extension and initiate the binding by calling `bind(to connectable: ReactiveConnectable)` (thus not the input & output separately).
 
-For example binding our `ExampleViewModel` to a `ExampleViewController` class;
+For example binding our `ExampleViewModel` to a `ExampleViewController` class:
 
 ```swift 
 class ExampleViewController: UIViewController {
@@ -130,6 +130,35 @@ extension ExampleViewController: ViewModelBindable {
 As soon as analytics would be added to this view controller simply add another extension
 
 ```
+class ExampleTrackingModel {
+    let input = Input()
+    lazy var output: Output = { return transform(input: input) }()
+}
+
+extension ExampleTrackingModel: ReactiveConnectable {
+    struct Input { }
+    struct Output { }
+
+    func transform(input: Input) -> Output {
+        return Output()
+    }
+}
+
+class ExampleViewController: UIViewController {
+    let viewModel: ExampleViewModel
+    let trackingModel: ExampleTrackingModel
+    init(viewModel: ExampleViewModel, trackingModel: ExampleTrackingModel) {
+        self.viewModel = viewModel
+        self.trackingModel = trackingModel
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        bind(to: viewModel)
+        bind(to: trackingModel)
+    }
+}
+
 extension ExampleViewController: TrackingModelBindable {
     func bind(to input: ExampleTrackingModel.Input) {
         ...
