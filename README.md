@@ -9,4 +9,4 @@ This repository will contain all the style guides written within Jumbo: *Style* 
 
 Current list of guide lines:
 
-* [Swift](https://github.com/jumbo-tech-campus/styleguide/blob/master/swift.md)
+* [Swift](https://github.com/jumbo-tech-campus/Styleguide/blob/master/swift/styleguide.md)
